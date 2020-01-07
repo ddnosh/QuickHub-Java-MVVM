@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">QuickHub</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_history">History Record</string>
+    <string name="trends">Trends</string>
+    <string name="open">Open</string>
+    <string name="search">Search</string>
+    <string name="exit_hint">Press again to exit!</string>
+    <string name="about">About</string>
+    <string name="author">Author: </string>
+    <string name="version">Version: </string>
+    <string name="keywords">Please input keywords: </string>
+    <string name="just_now">just now</string>
+    <string name="visit">visit</string>
+    <string name="visit_before">visit before</string>
+    <string name="delete_hint">Are you sure to delete?</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_success">Delete success!</string>
+    <string name="login">Login</string>
+    <string name="account_password_not_null">Account or password should not be null!</string>
+    <string name="current_select">Current select: </string>
+    <string name="select_language">Select language</string>
+    <string name="logout">Logout</string>
+    <string name="load_error">Load error, please try again.</string>
+    <string name="permission_fail">Fail to get permissions, exit app.</string>
+    <string name="my_star">My Star</string>
+    <string name="before">before</string>
+    <string name="my_account">My Account</string>
+    <string name="other">Other</string>
+    <string name="minute">minute</string>
+    <string name="hour">hour</string>
+    <string name="day">day</string>
+    <string name="month">month</string>
+    <string name="year">year</string>
+</resources>

@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.androidwind.github"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        def keystoreStream = new FileInputStream(rootProject.file('signing.properties'))
+        def keyProperties = new Properties()
+        keyProperties.load(keystoreStream)
+
+        release {
+            keyAlias keyProperties['KEY_ALIAS']
+            keyPassword keyProperties['KEY_PWD']
+            storeFile file(keyProperties['KEYSTORE_FILE'])
+            storePassword keyProperties['KEYSTORE_PWD']
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':base')
+
+    //flurry
+    implementation 'com.flurry.android:analytics:12.1.0@aar'
+    //retrofit converter
+    implementation 'com.squareup.retrofit2:converter-simplexml:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+    //processor
+    annotationProcessor rootProject.ext.processorLibs
+}
