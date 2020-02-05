@@ -3,7 +3,6 @@ package com.androidwind.github.module.retrofit;
 import com.androidwind.base.util.FileUtil;
 import com.androidwind.base.util.StringUtil;
 import com.androidwind.github.MyApplication;
-import com.androidwind.github.common.App;
 import com.androidwind.github.common.Constant;
 
 import java.util.HashMap;
@@ -29,6 +28,7 @@ public enum RetrofitManager {
     private final String TAG = "RetrofitManager";
 
     private HashMap<String, Retrofit> retrofitMap = new HashMap<>();
+    private String token;
 
     private void createRetrofit(@NonNull String baseUrl, boolean isJson) {
         int timeOut = Constant.HTTP_TIME_OUT;
@@ -43,10 +43,11 @@ public enum RetrofitManager {
                 .connectTimeout(timeOut, TimeUnit.MILLISECONDS)
                 .addInterceptor(loggingInterceptor)
                 .cache(cache);
-        if (!StringUtil.isEmpty(App.sAuthorization)) {
+        if (!StringUtil.isEmpty(token)) {
+            String auth = token.startsWith("Basic") ? token : "token " + token;
             okHttpClientBuilder.interceptors().add(0, chain -> {
                 Request.Builder reqBuilder = chain.request()
-                        .newBuilder().addHeader("Authorization", App.sLastLoginUser.getToken());
+                        .newBuilder().addHeader("Authorization", auth);
                 return chain.proceed(reqBuilder.build());
             });
         }
@@ -70,18 +71,28 @@ public enum RetrofitManager {
      * 区分登录态的Retrofit
      *
      * @param baseUrl
-     * @param withLogin
+     * @param token
+     * @param isJson
      * @return
      */
-    public Retrofit getRetrofit(@NonNull String baseUrl, boolean withLogin) {
-        String key = baseUrl + "-" + withLogin;
+    public Retrofit getRetrofit(@NonNull String baseUrl, String token, boolean isJson) {
+        this.token = token;
+        String key = baseUrl + "-" + isJson;
         if (!retrofitMap.containsKey(key)) {
-            createRetrofit(baseUrl, withLogin);
+            createRetrofit(baseUrl, isJson);
         }
         return retrofitMap.get(key);
     }
 
+    public Retrofit getRetrofit(@NonNull String baseUrl, String token) {
+        return getRetrofit(baseUrl, token, true);
+    }
+
     public Retrofit getRetrofit(@NonNull String baseUrl) {
-        return getRetrofit(baseUrl, true);
+        return getRetrofit(baseUrl, null);
+    }
+
+    public void reset() {
+        retrofitMap.clear();
     }
 }

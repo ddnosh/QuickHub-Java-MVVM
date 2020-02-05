@@ -65,4 +65,4 @@ Thumbs.db
 obj/
 
 # keyStore file
-signing.properties
+private.properties

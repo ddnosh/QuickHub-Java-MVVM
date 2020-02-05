@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.androidwind.github.R;
 import com.androidwind.github.common.App;
-import com.androidwind.github.mvvm.AppRepository;
 import com.androidwind.github.module.QuickModule;
+import com.androidwind.github.mvvm.AppRepository;
 import com.androidwind.github.ui.base.BaseActivity;
 import com.androidwind.github.ui.splash.SplashActivity;
 
@@ -48,7 +48,7 @@ public class ProfileActivity extends BaseActivity {
         if (App.sGithubUser != null) {
             mGroup.setVisibility(View.VISIBLE);
             mErrorView.setVisibility(View.GONE);
-            QuickModule.imageProcessor().loadNet(App.sGithubUser.getAvatar_url(), mAvatar);
+            QuickModule.imageProcessor().loadNet(App.sGithubUser.getAvatarUrl(), mAvatar);
             mName.setText(App.sGithubUser.getName());
             mLocation.setText(App.sGithubUser.getLocation());
             mEmail.setText(App.sGithubUser.getEmail());
@@ -72,8 +72,6 @@ public class ProfileActivity extends BaseActivity {
 
     private void logout() {
         AppRepository.logout(App.sLastLoginUser);
-        App.sLastLoginUser = null;
-        App.sGithubUser = null;
-        App.sGithubAuth = null;
+        App.reset();
     }
 }

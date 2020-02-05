@@ -19,7 +19,7 @@ public class RepoAdapter extends BaseQuickAdapter<GithubRepository, BaseViewHold
     protected void convert(BaseViewHolder holder, GithubRepository githubRepository) {
         holder.setText(R.id.tv_project, githubRepository.getFullName());
         holder.setText(R.id.tv_desc, githubRepository.getDescription());
-        QuickModule.imageProcessor().loadNet(githubRepository.getOwner().getAvatar_url(), holder.getView(R.id.iv_avatar));
+        QuickModule.imageProcessor().loadNet(githubRepository.getOwner().getAvatarUrl(), holder.getView(R.id.iv_avatar));
         holder.setText(R.id.tv_name, githubRepository.getOwner().getLogin());
         holder.setText(R.id.tv_stars, githubRepository.getStargazersCount() + " Stars");
     }

@@ -15,12 +15,16 @@ public class RetrofitApi {
         return RetrofitManager.INSTANCE.getRetrofit(baseUrl).create(serviceClass);
     }
 
-    private static <T> T getApis(Class<T> serviceClass, String baseUrl, boolean withLogin){
-        return RetrofitManager.INSTANCE.getRetrofit(baseUrl, withLogin).create(serviceClass);
+    private static <T> T getApis(Class<T> serviceClass, String baseUrl, String token){
+        return RetrofitManager.INSTANCE.getRetrofit(baseUrl, token).create(serviceClass);
     }
 
-    public static LoginApi getLoginApi() {
-        return getApis(LoginApi.class, Constant.GITHUB_API_URL, false);
+    public static LoginApi getLoginApi(String token) {
+        return getApis(LoginApi.class, Constant.GITHUB_API_URL, token);
+    }
+
+    public static UserApi getUserApi(String token) {
+        return getApis(UserApi.class, Constant.GITHUB_API_URL, token);
     }
 
     public static UserApi getUserApi() {
@@ -28,6 +32,6 @@ public class RetrofitApi {
     }
 
     public static RepoApi getRepoApi() {
-        return getApis(RepoApi.class, Constant.GITHUB_API_URL, false);
+        return getApis(RepoApi.class, Constant.GITHUB_API_URL);
     }
 }

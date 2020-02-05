@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.androidwind.base.common.Const;
 import com.androidwind.base.module.EventCenter;
 import com.androidwind.github.R;
-import com.androidwind.github.bean.Data;
-import com.androidwind.github.bean.GithubAuth;
 import com.androidwind.github.common.App;
 import com.androidwind.github.common.Constant;
 import com.androidwind.github.module.QuickModule;
@@ -41,7 +39,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
@@ -126,29 +123,9 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
             mTabLayout.getTabAt(i).setText(tabs[i]);
         }
         //init login data
-        if (App.sGithubAuth != null) {
-            updateUserInfo(App.sGithubAuth);
-        } else if (App.sLastLoginUser != null) {
-            getGitAuth();
+        if (App.sGithubUser == null) {
+            updateUserInfo();
         }
-    }
-
-    private void getGitAuth() {
-        mViewModel.login(App.sLastLoginUser.getToken()).observe(this, new Observer<Data<GithubAuth>>() {
-            @Override
-            public void onChanged(Data<GithubAuth> result) {
-                if (result.showLoading() && !isRetry) {
-                    showLoadingDialog();
-                }
-                if (result.showSuccess()) {
-                    updateUserInfo(result.data);
-                }
-                if (result.showError()) {
-                    dismissLoadingDialog();
-                    ToastUtils.showShort(result.msg);
-                }
-            }
-        });
     }
 
     @Override
@@ -211,26 +188,19 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
     @Override
     protected void onEventComing(EventCenter eventCenter) {
         if (eventCenter.getEventCode() == Const.RECEIVER_NETWORK_CONNECTED) {
-            if (App.sGithubAuth == null) {
-                isRetry = true;
-                getGitAuth();
-            }
+            updateUserInfo();
         }
     }
 
-    //需要登录后查询
-    private void updateUserInfo(GithubAuth githubAuth) {
-        if (githubAuth == null) {
-            return;
-        }
-        QuickModule.imageProcessor().loadNet(githubAuth.getAvatarUrl(), mHeader);
-        mName.setText(githubAuth.getAuthorName());
-        mViewModel.getGithubUser().observe(this, result -> {
+    private void updateUserInfo() {
+        mViewModel.getGithubUser(App.sLastLoginUser.getToken()).observe(this, result -> {
             if (result.showSuccess()) {
                 if (result.data != null) {
                     App.sGithubUser = result.data;
+                    QuickModule.imageProcessor().loadNet(App.sGithubUser.getAvatarUrl(), mHeader);
+                    mName.setText(App.sGithubUser.getName());
                     mSignature.setText(result.data.getBio());
-                    EventBus.getDefault().post(new EventCenter<>(Constant.EVENTBUS_EVENTCODE, githubAuth.getAuthorName()));
+                    EventBus.getDefault().post(new EventCenter<>(Constant.EVENTBUS_EVENTCODE, App.sGithubUser.getName()));
                 }
             }
             if (result.showError()) {

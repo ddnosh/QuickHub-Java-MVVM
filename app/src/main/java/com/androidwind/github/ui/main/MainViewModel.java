@@ -3,7 +3,7 @@ package com.androidwind.github.ui.main;
 import android.app.Application;
 
 import com.androidwind.github.bean.Data;
-import com.androidwind.github.bean.GithubAuth;
+import com.androidwind.github.bean.GithubBasicToken;
 import com.androidwind.github.bean.GithubUser;
 import com.androidwind.github.mvvm.BaseViewModel;
 
@@ -19,11 +19,11 @@ public class MainViewModel extends BaseViewModel<MainRepository> {
         super(application);
     }
 
-    public LiveData<Data<GithubAuth>> login(String authorization) {
+    public LiveData<Data<GithubBasicToken>> login(String authorization) {
         return repository.loginWithToken(authorization);
     }
 
-    public LiveData<Data<GithubUser>> getGithubUser() {
-        return repository.getGithubUser();
+    public LiveData<Data<GithubUser>> getGithubUser(String token) {
+        return repository.getGithubUser(token);
     }
 }

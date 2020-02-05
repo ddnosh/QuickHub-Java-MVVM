@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
+    def keystoreStream = new FileInputStream(rootProject.file('private.properties'))
+    def keyProperties = new Properties()
+    keyProperties.load(keystoreStream)
+
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
 
@@ -12,13 +16,14 @@ android {
         versionName rootProject.ext.android.versionName
 
         multiDexEnabled true
+
+
+        buildConfigField "String", "QUICKHUB_CLIENT_ID", keyProperties['quickhub_client_id']
+        buildConfigField "String", "QUICKHUB_CLIENT_SECRET", keyProperties['quickhub_client_secret']
+
     }
 
     signingConfigs {
-        def keystoreStream = new FileInputStream(rootProject.file('signing.properties'))
-        def keyProperties = new Properties()
-        keyProperties.load(keystoreStream)
-
         release {
             keyAlias keyProperties['KEY_ALIAS']
             keyPassword keyProperties['KEY_PWD']

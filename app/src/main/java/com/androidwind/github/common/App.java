@@ -1,7 +1,8 @@
 package com.androidwind.github.common;
 
-import com.androidwind.github.bean.GithubAuth;
+import com.androidwind.github.BuildConfig;
 import com.androidwind.github.bean.GithubUser;
+import com.androidwind.github.module.retrofit.RetrofitManager;
 import com.androidwind.github.module.room.User;
 
 /**
@@ -12,8 +13,20 @@ import com.androidwind.github.module.room.User;
  */
 public class App {
 
-    public static String sAuthorization;
+    public final static String QUICKHUB_CLIENT_ID = BuildConfig.QUICKHUB_CLIENT_ID;
+
+    public final static String QUICKHUB_CLIENT_SECRET = BuildConfig.QUICKHUB_CLIENT_SECRET;
+
+    public final static String REDIRECT_URL = "https://github.com/ddnosh";
+
+    public static String sCurrentUserName;
     public static User sLastLoginUser;
-    public static GithubAuth sGithubAuth;
     public static GithubUser sGithubUser;
+
+    public static void reset() {
+        sCurrentUserName = null;
+        sLastLoginUser = null;
+        sGithubUser = null;
+        RetrofitManager.INSTANCE.reset();
+    }
 }

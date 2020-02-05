@@ -86,8 +86,7 @@ public class SplashActivity extends BaseActivity {
                                             if (userList == null || userList.size() == 0) {
                                                 splashActivity.readyGo(LoginActivity.class);
                                             } else {
-                                                User user = userList.get(0);
-                                                App.sLastLoginUser = user;
+                                                App.sLastLoginUser = userList.get(0);
                                                 splashActivity.readyGo(MainActivity.class);
                                             }
                                             splashActivity.finish();
