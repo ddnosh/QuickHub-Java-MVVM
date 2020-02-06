@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
  */
 public abstract class MVVMActivity<T extends BaseViewModel> extends BaseActivity {
 
-    protected T mViewModel;
+    private T mViewModel;
 
     public T getViewModel() {
         return mViewModel;

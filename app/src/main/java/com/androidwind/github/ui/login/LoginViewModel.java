@@ -14,8 +14,16 @@ import androidx.lifecycle.LiveData;
  * @website http://blog.csdn.net/ddnosh
  */
 public class LoginViewModel extends BaseViewModel<LoginRepository> {
+
+    private LiveData<Data<GithubBasicToken>> mLiveDataLogin;
+
+    public LiveData<Data<GithubBasicToken>> getLiveDataLogin() {
+        return mLiveDataLogin;
+    }
+
     public LoginViewModel(@NonNull Application application) {
         super(application);
+        mLiveDataLogin = repository.getLiveDataLogin();
     }
 
     public LiveData<Data<GithubBasicToken>> login(String name, String password) {

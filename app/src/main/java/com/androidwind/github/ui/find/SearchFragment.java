@@ -4,6 +4,8 @@ import com.androidwind.base.util.StringUtil;
 import com.androidwind.github.common.Constant;
 import com.androidwind.github.ui.base.BaseRepoFragment;
 
+import androidx.lifecycle.LiveData;
+
 /**
  * @author ddnosh
  * @website http://blog.csdn.net/ddnosh
@@ -33,6 +35,11 @@ public class SearchFragment extends BaseRepoFragment<SearchViewModel> {
         page = 1;
         this.keyword = keyword;
         loadData();
+    }
+
+    @Override
+    protected LiveData initLiveData() {
+        return getViewModel().getLiveDataGithubSearch();
     }
 
     @Override

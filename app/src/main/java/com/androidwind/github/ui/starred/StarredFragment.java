@@ -8,6 +8,8 @@ import com.androidwind.github.common.Constant;
 import com.androidwind.github.ui.base.BaseRepoFragment;
 import com.androidwind.github.ui.base.FragmentActivity;
 
+import androidx.lifecycle.LiveData;
+
 /**
  * @author ddnosh
  * @website http://blog.csdn.net/ddnosh
@@ -20,6 +22,11 @@ public class StarredFragment extends BaseRepoFragment<StarredViewModel> {
         FragmentActivity fragmentActivity = (FragmentActivity)getActivity();
         fragmentActivity.getToolbar().setTitle(getResources().getString(R.string.my_star));
         fragmentActivity.getToolbar().setTitleTextColor(Color.parseColor("#ffffff"));
+    }
+
+    @Override
+    protected LiveData initLiveData() {
+        return getViewModel().getLiveDataGithubRepository();
     }
 
     @Override

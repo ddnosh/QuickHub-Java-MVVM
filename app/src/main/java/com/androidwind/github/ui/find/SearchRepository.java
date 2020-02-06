@@ -20,8 +20,13 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class SearchRepository extends BaseRepository {
 
+    private MutableLiveData<Data<List<GithubRepository>>> liveDataGithubSearch =  new MutableLiveData<>();
+
+    public MutableLiveData<Data<List<GithubRepository>>> getLiveDataGithubSearch() {
+        return liveDataGithubSearch;
+    }
+
     public LiveData<Data<List<GithubRepository>>> getSearchResult(String keyword, int page, int per_page) {
-        MutableLiveData<Data<List<GithubRepository>>> liveDataGithubSearch =  new MutableLiveData<>();
         liveDataGithubSearch.setValue(Data.loading());
         RetrofitApi.getRepoApi().query(keyword, "stars", "desc", page, per_page)
                 .compose(RxUtil.applySchedulers())

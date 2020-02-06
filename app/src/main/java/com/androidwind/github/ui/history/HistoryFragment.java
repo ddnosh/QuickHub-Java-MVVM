@@ -19,6 +19,8 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+
 /**
  * @author ddnosh
  * @website http://blog.csdn.net/ddnosh
@@ -56,6 +58,11 @@ public class HistoryFragment extends BaseListFragment<HistoryViewModel> {
     @Override
     protected BaseQuickAdapter getRepoAdapter() {
         return new HistoryAdapter(R.layout.item_history);
+    }
+
+    @Override
+    protected LiveData initLiveData() {
+        return getViewModel().getLiveDataHistory();
     }
 
     @Override

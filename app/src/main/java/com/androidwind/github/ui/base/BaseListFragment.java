@@ -1,14 +1,13 @@
 package com.androidwind.github.ui.base;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.androidwind.github.R;
 import com.androidwind.github.mvvm.BaseViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -39,12 +38,7 @@ public abstract class BaseListFragment<T extends BaseViewModel> extends MVVMFrag
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = getRepoAdapter();
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                clickRepoItem(position);
-            }
-        });
+        mAdapter.setOnItemClickListener((adapter, view, position) -> clickRepoItem(position));
         mRecyclerView.setAdapter(mAdapter);
         mSmartRefreshLayout.setOnRefreshListener(refreshlayout -> {
             isReload = true;
@@ -57,9 +51,13 @@ public abstract class BaseListFragment<T extends BaseViewModel> extends MVVMFrag
             ++page;
             loadData();
         });
+        //init viewmodel
+        initLiveData();
     }
 
     protected abstract BaseQuickAdapter getRepoAdapter();
+
+    protected abstract LiveData initLiveData();
 
     protected abstract void loadData();
 

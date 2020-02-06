@@ -41,6 +41,23 @@ public class LoginActivity extends MVVMActivity<LoginViewModel> {
         super.initViewsAndEvents(savedInstanceState);
         getToolbar().setTitle(getResources().getString(R.string.login));
         getToolbar().setTitleTextColor(Color.parseColor("#ffffff"));
+
+        //init viewmodel
+        getViewModel().getLiveDataLogin()
+                .observe(this, result -> {
+                    if (result.showLoading()) {
+                        showLoadingDialog();
+                    }
+                    if (result.showSuccess()) {
+                        dismissLoadingDialog();
+                        readyGo(MainActivity.class);
+                        finish();
+                    }
+                    if (result.showError()) {
+                        dismissLoadingDialog();
+                        ToastUtils.showShort(result.msg);
+                    }
+                });
     }
 
     @OnClick({R.id.btn_login})
@@ -51,22 +68,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel> {
                     ToastUtils.showShort(getResources().getString(R.string.account_password_not_null));
                     return;
                 }
-                mViewModel
-                        .login(mName.getText().toString(), mPassword.getText().toString())
-                        .observe(this, result -> {
-                            if (result.showLoading()) {
-                                showLoadingDialog();
-                            }
-                            if (result.showSuccess()) {
-                                dismissLoadingDialog();
-                                readyGo(MainActivity.class);
-                                finish();
-                            }
-                            if (result.showError()) {
-                                dismissLoadingDialog();
-                                ToastUtils.showShort(result.msg);
-                            }
-                        });
+                getViewModel().login(mName.getText().toString(), mPassword.getText().toString());
                 break;
         }
     }

@@ -19,8 +19,13 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class TrendsRepository extends BaseRepository {
 
+    private MutableLiveData<Data<List<GithubEvent>>> liveDataGithubEvent =  new MutableLiveData<>();
+
+    public MutableLiveData<Data<List<GithubEvent>>> getLiveDataGithubEvent() {
+        return liveDataGithubEvent;
+    }
+
     public LiveData<Data<List<GithubEvent>>> getTrends(String name, int page, int per_page) {
-        MutableLiveData<Data<List<GithubEvent>>> liveDataGithubEvent =  new MutableLiveData<>();
         liveDataGithubEvent.setValue(Data.loading());
         RetrofitApi.getRepoApi()
                 .getTrends(true, name, page, per_page)

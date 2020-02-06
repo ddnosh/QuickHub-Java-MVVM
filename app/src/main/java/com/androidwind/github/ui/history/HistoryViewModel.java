@@ -15,8 +15,16 @@ import androidx.lifecycle.LiveData;
  * @website http://blog.csdn.net/ddnosh
  */
 public class HistoryViewModel extends BaseViewModel<HistoryRepository> {
+
+    private LiveData<List<History>> liveDataHistory;
+
+    public LiveData<List<History>> getLiveDataHistory() {
+        return liveDataHistory;
+    }
+
     public HistoryViewModel(@NonNull Application application) {
         super(application);
+        liveDataHistory = repository.getLiveDataHistory();
     }
 
     public LiveData<List<History>> getHistory(int count, int offset) {

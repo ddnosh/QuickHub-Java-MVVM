@@ -19,8 +19,13 @@ import androidx.lifecycle.MutableLiveData;
  */
 public class StarredRepository extends BaseRepository {
 
+    private MutableLiveData<Data<List<GithubRepository>>> liveDataGithubRepository = new MutableLiveData<>();
+
+    public MutableLiveData<Data<List<GithubRepository>>> getLiveDataGithubRepository() {
+        return liveDataGithubRepository;
+    }
+
     public LiveData<Data<List<GithubRepository>>> getStarred(int page, int per_page) {
-        MutableLiveData<Data<List<GithubRepository>>> liveDataGithubRepository = new MutableLiveData<>();
         liveDataGithubRepository.setValue(Data.loading());
         RetrofitApi.getUserApi()
                 .getGithubStarred(page, per_page)

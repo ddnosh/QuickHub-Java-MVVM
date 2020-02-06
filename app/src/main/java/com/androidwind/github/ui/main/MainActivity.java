@@ -122,10 +122,24 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
         for (int i = 0; i < tabs.length; i++) {
             mTabLayout.getTabAt(i).setText(tabs[i]);
         }
+        //init viewmodel
+        getViewModel().getLiveDataUser().observe(this, result -> {
+            if (result.showSuccess()) {
+                if (result.data != null) {
+                    App.sGithubUser = result.data;
+                    QuickModule.imageProcessor().loadNet(App.sGithubUser.getAvatarUrl(), mHeader);
+                    mName.setText(App.sGithubUser.getName());
+                    mSignature.setText(result.data.getBio());
+                    EventBus.getDefault().post(new EventCenter<>(Constant.EVENTBUS_EVENTCODE, App.sGithubUser.getName()));
+                }
+            }
+            if (result.showError()) {
+                dismissLoadingDialog();
+                ToastUtils.showShort(result.msg);
+            }
+        });
         //init login data
-        if (App.sGithubUser == null) {
-            updateUserInfo();
-        }
+        updateUserInfo();
     }
 
     @Override
@@ -193,21 +207,7 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
     }
 
     private void updateUserInfo() {
-        mViewModel.getGithubUser(App.sLastLoginUser.getToken()).observe(this, result -> {
-            if (result.showSuccess()) {
-                if (result.data != null) {
-                    App.sGithubUser = result.data;
-                    QuickModule.imageProcessor().loadNet(App.sGithubUser.getAvatarUrl(), mHeader);
-                    mName.setText(App.sGithubUser.getName());
-                    mSignature.setText(result.data.getBio());
-                    EventBus.getDefault().post(new EventCenter<>(Constant.EVENTBUS_EVENTCODE, App.sGithubUser.getName()));
-                }
-            }
-            if (result.showError()) {
-                dismissLoadingDialog();
-                ToastUtils.showShort(result.msg);
-            }
-        });
+        getViewModel().getGithubUser(App.sLastLoginUser.getToken());
     }
 
     private long DOUBLE_CLICK_TIME = 0L;

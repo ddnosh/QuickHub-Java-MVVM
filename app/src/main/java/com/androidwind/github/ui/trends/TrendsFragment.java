@@ -17,6 +17,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+
 /**
  * @author ddnosh
  * @website http://blog.csdn.net/ddnosh
@@ -29,8 +31,13 @@ public class TrendsFragment extends BaseListFragment<TrendsViewModel> {
     }
 
     @Override
+    protected LiveData initLiveData() {
+        return getViewModel().getLiveDataGithubEvent();
+    }
+
+    @Override
     protected void loadData() {
-        mViewModel.getTrends(App.sLastLoginUser.getName(), page, Constant.PER_PAGE)
+        getViewModel().getTrends(App.sLastLoginUser.getName(), page, Constant.PER_PAGE)
                 .observe(this, result -> {
                     if (result.showLoading()) {
                         showLoadingDialog();
