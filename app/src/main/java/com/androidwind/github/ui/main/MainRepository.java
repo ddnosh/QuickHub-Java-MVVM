@@ -1,8 +1,8 @@
 package com.androidwind.github.ui.main;
 
-import com.androidwind.base.module.BaseObserver;
-import com.androidwind.base.module.exeception.ApiException;
-import com.androidwind.base.util.RxUtil;
+import com.androidwind.androidquick.module.exception.ApiException;
+import com.androidwind.androidquick.module.rxjava.BaseObserver;
+import com.androidwind.androidquick.util.RxUtil;
 import com.androidwind.github.bean.Data;
 import com.androidwind.github.bean.GithubUser;
 import com.androidwind.github.module.retrofit.RetrofitApi;
@@ -30,12 +30,12 @@ public class MainRepository extends BaseRepository {
         liveDataUser.setValue(Data.loading());
         RetrofitApi.getUserApi(token)
                 .getUserInfo()
-                .compose(RxUtil.applySchedulers())
+                .compose(RxUtil.io2Main())
                 .subscribe(new BaseObserver<GithubUser>() {
                     @Override
                     public void onError(ApiException exception) {
                         LogUtils.eTag(TAG, exception.toString());//打印错误日志
-                        liveDataUser.setValue(Data.error(exception.message));
+                        liveDataUser.setValue(Data.error(exception.getMsg()));
                     }
 
                     @Override

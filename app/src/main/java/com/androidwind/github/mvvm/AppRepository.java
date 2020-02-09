@@ -1,6 +1,6 @@
 package com.androidwind.github.mvvm;
 
-import com.androidwind.base.util.RxUtil;
+import com.androidwind.androidquick.util.RxUtil;
 import com.androidwind.github.MyApplication;
 import com.androidwind.github.module.room.AppRoomDatabase;
 import com.androidwind.github.module.room.History;
@@ -33,7 +33,7 @@ public class AppRepository {
                             AppRoomDatabase.getInstance(MyApplication.getInstance()).userDao().getLoginUser();
                     emitter.onNext(userList);
                 }
-        ).compose(RxUtil.applySchedulers());//数据库操作默认在子线程中完成, 然后通过UI线程返回下一步处理
+        ).compose(RxUtil.io2Main());//数据库操作默认在子线程中完成, 然后通过UI线程返回下一步处理
     }
 
     public static void logout(User user) {

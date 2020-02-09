@@ -59,8 +59,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':base')
-
+    //base
+    implementation 'com.androidwind:androidquick:3.0.2'
+    //leakCanary
+    debugApi rootProject.ext.toolDeps["leakcanary-debug"]
+    releaseApi rootProject.ext.toolDeps["leakcanary-release"]
+    //stetho
+    implementation "com.facebook.stetho:stetho:1.5.1"
     //flurry
     implementation 'com.flurry.android:analytics:12.1.0@aar'
     //retrofit converter
@@ -68,4 +73,16 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
     //processor
     annotationProcessor rootProject.ext.processorLibs
+    // tool 上面两种写法只是为了展示不同的写法, 可以用如下写法统一处理:
+//    api rootProject.ext.toolLibs
+    // support
+    api rootProject.ext.supportLibs
+    // common
+    api rootProject.ext.commonLibs
+    // rx serials
+    api rootProject.ext.rxLibs
+    // network
+    api rootProject.ext.networkLibs
+    // other
+    api rootProject.ext.otherLibs
 }

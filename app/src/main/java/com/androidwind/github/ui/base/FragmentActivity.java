@@ -2,8 +2,8 @@ package com.androidwind.github.ui.base;
 
 import android.os.Bundle;
 
-import com.androidwind.base.ui.QuickFragment;
-import com.androidwind.base.util.ReflectUtil;
+import com.androidwind.androidquick.ui.base.QuickFragment;
+import com.androidwind.androidquick.util.ReflectUtil;
 import com.androidwind.github.R;
 import com.blankj.utilcode.util.LogUtils;
 
@@ -50,8 +50,7 @@ public class FragmentActivity extends BaseActivity {
         }
     }
 
-    public Toolbar getToolbar() {
+    public Toolbar getTheToolbar() {
         return super.getToolbar();
     }
-
 }

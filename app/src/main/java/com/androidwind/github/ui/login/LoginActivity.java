@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.androidwind.base.util.StringUtil;
+import com.androidwind.androidquick.util.StringUtil;
 import com.androidwind.github.R;
 import com.androidwind.github.ui.base.MVVMActivity;
 import com.androidwind.github.ui.main.MainActivity;

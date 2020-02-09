@@ -2,9 +2,9 @@ package com.androidwind.github.ui.login;
 
 import android.util.Base64;
 
-import com.androidwind.base.module.BaseObserver;
-import com.androidwind.base.module.exeception.ApiException;
-import com.androidwind.base.util.RxUtil;
+import com.androidwind.androidquick.module.exception.ApiException;
+import com.androidwind.androidquick.module.rxjava.BaseObserver;
+import com.androidwind.androidquick.util.RxUtil;
 import com.androidwind.github.bean.Data;
 import com.androidwind.github.bean.GithubBasicToken;
 import com.androidwind.github.common.App;
@@ -40,13 +40,13 @@ public class LoginRepository extends BaseRepository {
         liveDataLogin.setValue(Data.loading());
         RetrofitApi.getLoginApi(token)
                 .authorizations(authRequestModel)
-                .compose(RxUtil.applySchedulers())
+                .compose(RxUtil.io2Main())
                 .subscribe(new BaseObserver<GithubBasicToken>() {
 
                     @Override
                     public void onError(ApiException exception) {
                         LogUtils.eTag(TAG, exception.toString());//打印错误日志
-                        liveDataLogin.setValue(Data.error(exception.message));
+                        liveDataLogin.setValue(Data.error(exception.getMsg()));
                     }
 
                     @Override

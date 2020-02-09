@@ -1,7 +1,7 @@
 package com.androidwind.github.ui.base;
 
-import com.androidwind.base.module.EventCenter;
-import com.androidwind.base.ui.QuickFragment;
+import com.androidwind.androidquick.module.asynchronize.eventbus.EventCenter;
+import com.androidwind.androidquick.ui.base.QuickFragment;
 
 /**
  * @author ddnosh

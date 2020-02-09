@@ -1,7 +1,7 @@
 package com.androidwind.github.module.retrofit;
 
-import com.androidwind.base.util.FileUtil;
-import com.androidwind.base.util.StringUtil;
+import com.androidwind.androidquick.util.FileUtil;
+import com.androidwind.androidquick.util.StringUtil;
 import com.androidwind.github.MyApplication;
 import com.androidwind.github.common.Constant;
 
@@ -16,6 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
@@ -54,13 +55,13 @@ public enum RetrofitManager {
 
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())//定义转化器,用Gson将服务器返回的Json格式解析成实体
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//关联RxJava
                 .client(okHttpClientBuilder.build());
 
         if (isJson) {
-            builder.addConverterFactory(GsonConverterFactory.create());
+            builder.addConverterFactory(GsonConverterFactory.create());//定义转化器,用Gson将服务器返回的Json格式解析成实体
         } else {
+            builder.addConverterFactory(ScalarsConverterFactory.create());
             builder.addConverterFactory(SimpleXmlConverterFactory.createNonStrict());
         }
 
@@ -90,6 +91,10 @@ public enum RetrofitManager {
 
     public Retrofit getRetrofit(@NonNull String baseUrl) {
         return getRetrofit(baseUrl, null);
+    }
+
+    public Retrofit getRetrofit(@NonNull String baseUrl, boolean isJson) {
+        return getRetrofit(baseUrl, null, false);
     }
 
     public void reset() {

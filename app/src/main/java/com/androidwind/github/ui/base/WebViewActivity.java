@@ -10,11 +10,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.androidwind.base.module.EventCenter;
-import com.androidwind.base.ui.QuickActivity;
-import com.androidwind.base.util.StringUtil;
+import com.androidwind.androidquick.module.asynchronize.eventbus.EventCenter;
+import com.androidwind.androidquick.ui.base.QuickActivity;
+import com.androidwind.androidquick.util.StringUtil;
 import com.androidwind.github.R;
 import com.androidwind.github.common.Constant;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author ddnosh
@@ -144,5 +146,16 @@ public class WebViewActivity extends QuickActivity {
             wvWebView = null;
         }
         super.onDestroy();
+    }
+
+    @NotNull
+    @Override
+    protected TransitionMode getOverridePendingTransitionMode() {
+        return TransitionMode.LEFT;
+    }
+
+    @Override
+    protected boolean toggleOverridePendingTransition() {
+        return false;
     }
 }

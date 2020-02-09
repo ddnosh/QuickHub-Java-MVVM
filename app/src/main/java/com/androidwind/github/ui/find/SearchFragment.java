@@ -1,6 +1,6 @@
 package com.androidwind.github.ui.find;
 
-import com.androidwind.base.util.StringUtil;
+import com.androidwind.androidquick.util.StringUtil;
 import com.androidwind.github.common.Constant;
 import com.androidwind.github.ui.base.BaseRepoFragment;
 

@@ -1,6 +1,7 @@
 package com.androidwind.github.module.retrofit;
 
 import com.androidwind.github.api.LoginApi;
+import com.androidwind.github.api.OtherApi;
 import com.androidwind.github.api.RepoApi;
 import com.androidwind.github.api.UserApi;
 import com.androidwind.github.common.Constant;
@@ -13,6 +14,10 @@ public class RetrofitApi {
 
     private static <T> T getApis(Class<T> serviceClass, String baseUrl){
         return RetrofitManager.INSTANCE.getRetrofit(baseUrl).create(serviceClass);
+    }
+
+    private static <T> T getApis(Class<T> serviceClass, String baseUrl, boolean isJson){
+        return RetrofitManager.INSTANCE.getRetrofit(baseUrl, isJson).create(serviceClass);
     }
 
     private static <T> T getApis(Class<T> serviceClass, String baseUrl, String token){
@@ -33,5 +38,9 @@ public class RetrofitApi {
 
     public static RepoApi getRepoApi() {
         return getApis(RepoApi.class, Constant.GITHUB_API_URL);
+    }
+
+    public static OtherApi geOtherApi() {
+        return getApis(OtherApi.class, Constant.GITHUB_API_URL, false);
     }
 }

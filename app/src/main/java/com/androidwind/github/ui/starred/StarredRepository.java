@@ -1,8 +1,8 @@
 package com.androidwind.github.ui.starred;
 
-import com.androidwind.base.module.BaseObserver;
-import com.androidwind.base.module.exeception.ApiException;
-import com.androidwind.base.util.RxUtil;
+import com.androidwind.androidquick.module.exception.ApiException;
+import com.androidwind.androidquick.module.rxjava.BaseObserver;
+import com.androidwind.androidquick.util.RxUtil;
 import com.androidwind.github.bean.Data;
 import com.androidwind.github.bean.GithubRepository;
 import com.androidwind.github.module.retrofit.RetrofitApi;
@@ -29,11 +29,11 @@ public class StarredRepository extends BaseRepository {
         liveDataGithubRepository.setValue(Data.loading());
         RetrofitApi.getUserApi()
                 .getGithubStarred(page, per_page)
-                .compose(RxUtil.applySchedulers())
+                .compose(RxUtil.io2Main())
                 .subscribe(new BaseObserver<List<GithubRepository>>() {
                     @Override
                     public void onError(ApiException exception) {
-                        liveDataGithubRepository.setValue(Data.error(exception.message));
+                        liveDataGithubRepository.setValue(Data.error(exception.getMsg()));
                     }
 
                     @Override

@@ -3,8 +3,10 @@ package com.androidwind.github.ui.base;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.androidwind.base.module.EventCenter;
-import com.androidwind.base.ui.QuickActivity;
+import com.androidwind.androidquick.module.asynchronize.eventbus.EventCenter;
+import com.androidwind.androidquick.ui.base.QuickActivity;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author ddnosh
@@ -12,6 +14,16 @@ import com.androidwind.base.ui.QuickActivity;
  */
 public abstract class BaseActivity extends QuickActivity {
 
+    @NotNull
+    @Override
+    protected TransitionMode getOverridePendingTransitionMode() {
+        return TransitionMode.LEFT;
+    }
+
+    @Override
+    protected boolean toggleOverridePendingTransition() {
+        return false;
+    }
 
     //默认不使用自带titlebar
     @Override

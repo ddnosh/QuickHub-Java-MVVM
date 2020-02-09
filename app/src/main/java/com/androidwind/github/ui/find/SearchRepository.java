@@ -1,8 +1,8 @@
 package com.androidwind.github.ui.find;
 
-import com.androidwind.base.module.BaseObserver;
-import com.androidwind.base.module.exeception.ApiException;
-import com.androidwind.base.util.RxUtil;
+import com.androidwind.androidquick.module.exception.ApiException;
+import com.androidwind.androidquick.module.rxjava.BaseObserver;
+import com.androidwind.androidquick.util.RxUtil;
 import com.androidwind.github.bean.Data;
 import com.androidwind.github.bean.GithubRepository;
 import com.androidwind.github.bean.GithubSearch;
@@ -29,11 +29,11 @@ public class SearchRepository extends BaseRepository {
     public LiveData<Data<List<GithubRepository>>> getSearchResult(String keyword, int page, int per_page) {
         liveDataGithubSearch.setValue(Data.loading());
         RetrofitApi.getRepoApi().query(keyword, "stars", "desc", page, per_page)
-                .compose(RxUtil.applySchedulers())
+                .compose(RxUtil.io2Main())
                 .subscribe(new BaseObserver<GithubSearch>() {
                     @Override
                     public void onError(ApiException exception) {
-                        liveDataGithubSearch.setValue(Data.error(exception.message));
+                        liveDataGithubSearch.setValue(Data.error(exception.getMsg()));
                     }
 
                     @Override

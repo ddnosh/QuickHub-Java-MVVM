@@ -7,13 +7,13 @@ import android.os.Message;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.androidwind.base.base.SafeHandler;
-import com.androidwind.base.module.BaseObserver;
-import com.androidwind.base.module.exeception.ApiException;
+import com.androidwind.androidquick.module.asynchronize.handler.SafeHandler;
+import com.androidwind.androidquick.module.exception.ApiException;
+import com.androidwind.androidquick.module.rxjava.BaseObserver;
 import com.androidwind.github.R;
 import com.androidwind.github.common.App;
-import com.androidwind.github.mvvm.AppRepository;
 import com.androidwind.github.module.room.User;
+import com.androidwind.github.mvvm.AppRepository;
 import com.androidwind.github.ui.base.BaseActivity;
 import com.androidwind.github.ui.login.LoginActivity;
 import com.androidwind.github.ui.main.MainActivity;

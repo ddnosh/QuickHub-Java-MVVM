@@ -8,12 +8,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.androidwind.base.common.Const;
-import com.androidwind.base.module.EventCenter;
+import com.androidwind.androidquick.module.asynchronize.eventbus.EventCenter;
+import com.androidwind.androidquick.module.exception.ApiException;
+import com.androidwind.androidquick.module.rxjava.BaseObserver;
+import com.androidwind.androidquick.ui.dialog.dialogfragment.CommonDialog;
+import com.androidwind.androidquick.ui.dialog.dialogfragment.ViewConvertListener;
+import com.androidwind.androidquick.util.RxUtil;
 import com.androidwind.github.R;
 import com.androidwind.github.common.App;
 import com.androidwind.github.common.Constant;
 import com.androidwind.github.module.QuickModule;
+import com.androidwind.github.module.retrofit.RetrofitApi;
 import com.androidwind.github.ui.about.AboutActivity;
 import com.androidwind.github.ui.base.MVVMActivity;
 import com.androidwind.github.ui.find.FindFragment;
@@ -22,6 +27,7 @@ import com.androidwind.github.ui.open.OpenFragment;
 import com.androidwind.github.ui.profile.ProfileActivity;
 import com.androidwind.github.ui.starred.StarredFragment;
 import com.androidwind.github.ui.trends.TrendsFragment;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -140,6 +146,36 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
         });
         //init login data
         updateUserInfo();
+        //get zen
+        getZen();
+    }
+
+    private void getZen() {
+        RetrofitApi.geOtherApi()
+                .getZen()
+                .compose(RxUtil.io2Main())
+                .subscribe(new BaseObserver<String>() {
+                    @Override
+                    public void onError(ApiException exception) {
+                        LogUtils.eTag(TAG, exception.toString());//打印错误日志
+                    }
+
+                    @Override
+                    public void onSuccess(String zen) {
+                        CommonDialog.Companion.newInstance()
+                                .setDialogLayout(R.layout.dialogfragment_alert)
+                                .setConvertListener((ViewConvertListener) (holder, dialog) -> {
+                                    ((TextView)holder.getView(R.id.df_title)).setText("EveryDay Zen");
+                                    ((TextView)holder.getView(R.id.df_message)).setText(zen);
+                                    holder.setOnClickListener(R.id.df_confirm, v -> {
+                                        dialog.dismiss();
+                                    });
+                                })
+                                .setMargin(60)
+                                .setOutCancel(true)
+                                .show(getSupportFragmentManager());
+                    }
+                });
     }
 
     @Override
@@ -201,7 +237,7 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
 
     @Override
     protected void onEventComing(EventCenter eventCenter) {
-        if (eventCenter.getEventCode() == Const.RECEIVER_NETWORK_CONNECTED) {
+        if (eventCenter.getEventCode() == com.androidwind.androidquick.constant.Constant.RECEIVER_NETWORK_CONNECTED) {
             updateUserInfo();
         }
     }
@@ -211,6 +247,7 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
     }
 
     private long DOUBLE_CLICK_TIME = 0L;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_MENU) {

@@ -2,7 +2,7 @@ package com.androidwind.github.ui.trends;
 
 import android.os.Bundle;
 
-import com.androidwind.base.module.EventCenter;
+import com.androidwind.androidquick.module.asynchronize.eventbus.EventCenter;
 import com.androidwind.github.R;
 import com.androidwind.github.bean.GithubEvent;
 import com.androidwind.github.common.App;
