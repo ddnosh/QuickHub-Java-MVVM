@@ -70,6 +70,8 @@ ext {
     networkDeps = [
             "retrofit"                  : "com.squareup.retrofit2:retrofit:${dependVersion.retrofitSdkVersion}",
             "retrofitConverterGson"     : "com.squareup.retrofit2:converter-gson:${dependVersion.retrofitSdkVersion}",
+            "retrofitConverterSimplexml": "com.squareup.retrofit2:converter-simplexml:${dependVersion.retrofitSdkVersion}",
+            "retrofitConverterScalars"  : "com.squareup.retrofit2:converter-scalars:${dependVersion.retrofitSdkVersion}",
             "adapter-rxjava2"           : "com.squareup.retrofit2:adapter-rxjava2:${dependVersion.retrofitSdkVersion}",
             "okhttp3"                   : "com.squareup.okhttp3:okhttp:${dependVersion.okhttp3}",
             "okhttp3-logging-interceptor"     : "com.squareup.okhttp3:logging-interceptor:${dependVersion.okhttp3}"
