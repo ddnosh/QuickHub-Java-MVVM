@@ -30,3 +30,10 @@ QuickHub是一款基于GithHub网站提供API开发的开源软件，界面简�
 *  抽屉栏-我的账户
 *  抽屉栏-我的Star
 *  抽屉栏-关于
+
+## 其它事项
+#### signing.properties格式
+KEYSTORE_FILE = jks地址，如C:\\android\\key\\myapp.jks
+KEY_ALIAS = 别名，跟申请证书时一致
+KEYSTORE_PWD= keystore密码，跟申请证书时一致
+KEY_PWD= key密码，跟申请证书时一致
