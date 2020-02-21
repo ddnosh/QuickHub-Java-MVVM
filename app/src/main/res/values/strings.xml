@@ -1,8 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">QuickHub for GitHub</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_history">History Record</string>
+    <string name="zen">EveryDay Zen</string>
+    <string name="long_press_to_delete">Long press to delete.</string>
     <string name="trends">Trends</string>
     <string name="open">Open</string>
     <string name="search">Search</string>

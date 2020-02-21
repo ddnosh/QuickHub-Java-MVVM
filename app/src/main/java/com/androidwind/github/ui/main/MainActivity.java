@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.androidwind.androidquick.module.asynchronize.eventbus.EventCenter;
 import com.androidwind.androidquick.module.exception.ApiException;
 import com.androidwind.androidquick.module.rxjava.BaseObserver;
-import com.androidwind.androidquick.ui.dialog.dialogfragment.CommonDialog;
-import com.androidwind.androidquick.ui.dialog.dialogfragment.ViewConvertListener;
+import com.androidwind.androidquick.ui.dialog.dialogfragment.BaseDialogFragment;
+import com.androidwind.androidquick.ui.dialog.dialogfragment.FDialog;
 import com.androidwind.androidquick.util.RxUtil;
 import com.androidwind.github.R;
 import com.androidwind.github.common.App;
@@ -162,11 +162,11 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
 
                     @Override
                     public void onSuccess(String zen) {
-                        CommonDialog.Companion.newInstance()
+                        new FDialog()
                                 .setDialogLayout(R.layout.dialogfragment_alert)
-                                .setConvertListener((ViewConvertListener) (holder, dialog) -> {
-                                    ((TextView)holder.getView(R.id.df_title)).setText("EveryDay Zen");
-                                    ((TextView)holder.getView(R.id.df_message)).setText(zen);
+                                .setConvertListener((BaseDialogFragment.ViewConvertListener) (holder, dialog) -> {
+                                    holder.setText(R.id.df_title, getResources().getString(R.string.zen));
+                                    holder.setText(R.id.df_message, zen);
                                     holder.setOnClickListener(R.id.df_confirm, v -> {
                                         dialog.dismiss();
                                     });

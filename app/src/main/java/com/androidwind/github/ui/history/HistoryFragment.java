@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import com.androidwind.androidquick.ui.dialog.dialogactivity.ADialog;
+import com.androidwind.androidquick.ui.dialog.dialogactivity.BaseDialog;
 import com.androidwind.github.R;
 import com.androidwind.github.common.Constant;
 import com.androidwind.github.module.room.History;
@@ -37,17 +39,21 @@ public class HistoryFragment extends BaseListFragment<HistoryViewModel> {
         mAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                getDialogBuilder(getActivity())
-                        .setTitle(R.string.app_name)
-                        .setMessage(getResources().getString(R.string.delete_hint))
-                        .setPositiveButton(getResources().getString(R.string.confirm))
-                        .setNegativeButton(getResources().getString(R.string.cancel))
-                        .setBtnClickCallBack(isConfirm -> {
-                            if (isConfirm) {
-                                History history = (History) mAdapter.getData().get(position);
-                                AppRepository.deleteHistory(history);
-                                ToastUtils.showShort(getResources().getString(R.string.delete_success));
-                            }
+                new ADialog(mContext)
+                        .setConvertListener((BaseDialog.ViewConvertListener) (holder, dialog) -> {
+                            holder.setText(R.id.dialog_title, getResources().getString(R.string.app_name));
+                            holder.setText(R.id.dialog_info, getResources().getString(R.string.delete_hint));
+                            holder.setText(R.id.dialog_confirm, getResources().getString(R.string.confirm));
+                            holder.setText(R.id.dialog_cancel, getResources().getString(R.string.cancel));
+                            holder.setOnClickListener(R.id.dialog_confirm, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    History history = (History) mAdapter.getData().get(position);
+                                    AppRepository.deleteHistory(history);
+                                    ToastUtils.showShort(getResources().getString(R.string.delete_success));
+                                    dialog.dismiss();
+                                }
+                            });
                         }).show();
                 return false;
             }
@@ -86,10 +92,19 @@ public class HistoryFragment extends BaseListFragment<HistoryViewModel> {
         }
         if (list != null && list.size() > 0) {
             if (!SPUtils.getInstance().getBoolean("HAS_SHOW_HINT")) {
-                getDialogBuilder(getActivity())
-                        .setTitle(R.string.app_name)
-                        .setMessage("长按可以删除历史记录")
-                        .setPositiveButton("了解").show();
+                new ADialog(mContext)
+                    .setDialogLayout(R.layout.dialog_alert)
+                    .setConvertListener((BaseDialog.ViewConvertListener) (holder, dialog) -> {
+                        holder.setText(R.id.dialog_title, getResources().getString(R.string.app_name));
+                        holder.setText(R.id.dialog_info, getResources().getString(R.string.long_press_to_delete));
+                        holder.setText(R.id.dialog_confirm, getResources().getString(R.string.confirm));
+                        holder.setOnClickListener(R.id.dialog_confirm, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }).show();
                 SPUtils.getInstance().put("HAS_SHOW_HINT", true);
             }
         }

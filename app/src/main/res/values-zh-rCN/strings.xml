@@ -4,6 +4,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_history">浏览记录</string>
+    <string name="long_press_to_delete">长按可以删除历史记录</string>
+    <string name="zen">每日禅道</string>
     <string name="trends">最新</string>
     <string name="open">开源</string>
     <string name="search">搜索</string>

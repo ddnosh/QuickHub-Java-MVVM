@@ -60,7 +60,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //base
-    implementation 'com.androidwind:androidquick:3.0.2'
+    implementation 'com.androidwind:androidquick:3.0.3'
     //processor
     annotationProcessor rootProject.ext.processorLibs
     //flurry
