@@ -32,7 +32,8 @@ QuickHub是一款基于GithHub网站提供API开发的开源软件，界面简�
 *  抽屉栏-关于
 
 ## 使用方法
-#### signing.properties格式
+1. 首先在项目根目录下新建一个signing.properties文件。
+2. 其次按照如下格式新建内容：  
 ~~~xml
 KEYSTORE_FILE = 你的ketstore文件路径，windows下如C:\\android\\key\\myapp.jks
 KEY_ALIAS = 你的ketstore别名，如myapp
