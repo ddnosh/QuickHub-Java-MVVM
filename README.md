@@ -33,8 +33,10 @@ QuickHub是一款基于GithHub网站提供API开发的开源软件，界面简�
 
 ## 使用方法
 #### signing.properties格式
+~~~xml
 KEYSTORE_FILE = 你的ketstore文件路径，windows下如C:\\android\\key\\myapp.jks
 KEY_ALIAS = 你的ketstore别名，如myapp
 KEYSTORE_PWD= 你的keystore密码，比如123456
 KEY_PWD= 你的key密码，比如123456
 #以上是创建keystore的时候自己填写的
+~~~
