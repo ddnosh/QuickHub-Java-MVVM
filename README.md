@@ -32,16 +32,9 @@ QuickHub是一款基于GithHub网站提供API开发的开源软件，界面简�
 *  抽屉栏-关于
 
 ## 使用方法
-1. 首先在项目根目录下新建一个private.properties文件。
-2. 其次按照如下格式新建内容：  
-~~~ xml
+#### signing.properties格式
 KEYSTORE_FILE = 你的ketstore文件路径，windows下如C:\\android\\key\\myapp.jks
 KEY_ALIAS = 你的ketstore别名，如myapp
 KEYSTORE_PWD= 你的keystore密码，比如123456
 KEY_PWD= 你的key密码，比如123456
 #以上是创建keystore的时候自己填写的
-
-quickhub_client_id = "github的client_id"
-quickhub_client_secret = "github的client_secret"
-#上面两个参数在Github账号下的Setting --> Developer settings --> OAuth Apps下创建一个OAuth App，系统会自动生成这两个参数。
-~~~
