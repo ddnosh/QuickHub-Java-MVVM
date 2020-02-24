@@ -26,7 +26,9 @@ public class StarredRepository extends BaseRepository {
     }
 
     public LiveData<Data<List<GithubRepository>>> getStarred(int page, int per_page) {
-        liveDataGithubRepository.setValue(Data.loading());
+        if (page == 1) {
+            liveDataGithubRepository.setValue(Data.loading());
+        }
         RetrofitApi.getUserApi()
                 .getGithubStarred(page, per_page)
                 .compose(RxUtil.io2Main())

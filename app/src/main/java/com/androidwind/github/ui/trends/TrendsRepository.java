@@ -26,7 +26,9 @@ public class TrendsRepository extends BaseRepository {
     }
 
     public LiveData<Data<List<GithubEvent>>> getTrends(String name, int page, int per_page) {
-        liveDataGithubEvent.setValue(Data.loading());
+        if (page == 1) {
+            liveDataGithubEvent.setValue(Data.loading());
+        }
         RetrofitApi.getRepoApi()
                 .getTrends(true, name, page, per_page)
                 .compose(RxUtil.io2Main())

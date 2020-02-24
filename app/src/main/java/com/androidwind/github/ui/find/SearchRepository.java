@@ -27,7 +27,9 @@ public class SearchRepository extends BaseRepository {
     }
 
     public LiveData<Data<List<GithubRepository>>> getSearchResult(String keyword, int page, int per_page) {
-        liveDataGithubSearch.setValue(Data.loading());
+        if (page == 1) {
+            liveDataGithubSearch.setValue(Data.loading());
+        }
         RetrofitApi.getRepoApi().query(keyword, "stars", "desc", page, per_page)
                 .compose(RxUtil.io2Main())
                 .subscribe(new BaseObserver<GithubSearch>() {

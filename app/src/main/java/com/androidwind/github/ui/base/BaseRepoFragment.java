@@ -36,18 +36,20 @@ public abstract class BaseRepoFragment<T extends BaseViewModel> extends BaseList
     protected Observer observer = (Observer<Data<List<GithubRepository>>>) result -> {
         if (result.showLoading()) {
             BaseRepoFragment.this.showLoadingDialog();
-        }
-        if (result.showSuccess()) {
-            BaseRepoFragment.this.updateData(result.data);
+        } else {
             if (isReload) {
                 mSmartRefreshLayout.finishRefresh();
             } else {
                 mSmartRefreshLayout.finishLoadMore();
             }
-        }
-        if (result.showError()) {
-            BaseRepoFragment.this.dismissLoadingDialog();
-            ToastUtils.showShort(result.msg);
+            //
+            if (result.showSuccess()) {
+                BaseRepoFragment.this.updateData(result.data);
+            }
+            if (result.showError()) {
+                BaseRepoFragment.this.dismissLoadingDialog();
+                ToastUtils.showShort(result.msg);
+            }
         }
     };
 

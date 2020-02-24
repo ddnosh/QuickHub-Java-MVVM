@@ -41,18 +41,21 @@ public class TrendsFragment extends BaseListFragment<TrendsViewModel> {
                 .observe(this, result -> {
                     if (result.showLoading()) {
                         showLoadingDialog();
-                    }
-                    if (result.showSuccess()) {
-                        updateData(result.data);
+                    } else {
                         if (isReload) {
                             mSmartRefreshLayout.finishRefresh();
                         } else {
                             mSmartRefreshLayout.finishLoadMore();
                         }
-                    }
-                    if (result.showError()) {
-                        dismissLoadingDialog();
-                        ToastUtils.showShort(result.msg);
+                        //
+                        if (result.showSuccess()) {
+                            updateData(result.data);
+
+                        }
+                        if (result.showError()) {
+                            dismissLoadingDialog();
+                            ToastUtils.showShort(result.msg);
+                        }
                     }
                 });
     }

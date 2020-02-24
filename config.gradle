@@ -32,7 +32,7 @@ ext {
 
             leakcanary          : "1.6.1",
             stetho              : "1.5.0",
-            lottie              : "2.5.4",
+            lottie              : "2.8.0",
             material            : "1.2.0-alpha03",
             refresh             : "1.1.0",
             brvah               : "3.0.0-beta2",

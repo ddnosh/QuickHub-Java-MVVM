@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.androidwind.androidquick.constant.QConstant;
 import com.androidwind.androidquick.module.asynchronize.eventbus.EventCenter;
 import com.androidwind.androidquick.module.exception.ApiException;
 import com.androidwind.androidquick.module.rxjava.BaseObserver;
@@ -167,6 +168,7 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
                                 .setConvertListener((BaseDialogFragment.ViewConvertListener) (holder, dialog) -> {
                                     holder.setText(R.id.df_title, getResources().getString(R.string.zen));
                                     holder.setText(R.id.df_message, zen);
+                                    holder.setText(R.id.df_confirm, getResources().getString(R.string.confirm));
                                     holder.setOnClickListener(R.id.df_confirm, v -> {
                                         dialog.dismiss();
                                     });
@@ -237,7 +239,7 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
 
     @Override
     protected void onEventComing(EventCenter eventCenter) {
-        if (eventCenter.getEventCode() == com.androidwind.androidquick.constant.Constant.RECEIVER_NETWORK_CONNECTED) {
+        if (eventCenter.getEventCode() == QConstant.RECEIVER_NETWORK_CONNECTED) {
             updateUserInfo();
         }
     }
