@@ -22,6 +22,7 @@ public class StarredFragment extends BaseRepoFragment<StarredViewModel> {
         FragmentActivity fragmentActivity = (FragmentActivity)getActivity();
         fragmentActivity.getTheToolbar().setTitle(getResources().getString(R.string.my_star));
         fragmentActivity.getTheToolbar().setTitleTextColor(Color.parseColor("#ffffff"));
+        fragmentActivity.getTheToolbar().setBackgroundColor(Color.parseColor("#708090"));
     }
 
     @Override

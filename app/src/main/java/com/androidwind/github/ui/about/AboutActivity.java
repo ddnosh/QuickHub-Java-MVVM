@@ -39,6 +39,7 @@ public class AboutActivity extends BaseActivity {
         mVersion.setText(BuildConfig.VERSION_NAME);
         getToolbar().setTitle(getResources().getString(R.string.about));
         getToolbar().setTitleTextColor(Color.parseColor("#ffffff"));
+        getToolbar().setBackgroundColor(Color.parseColor("#708090"));
     }
 
     @OnClick({R.id.tv_url})

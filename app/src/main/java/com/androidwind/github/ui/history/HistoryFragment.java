@@ -35,6 +35,7 @@ public class HistoryFragment extends BaseListFragment<HistoryViewModel> {
         FragmentActivity fragmentActivity = (FragmentActivity) getActivity();
         fragmentActivity.getTheToolbar().setTitle(getResources().getString(R.string.action_history));
         fragmentActivity.getTheToolbar().setTitleTextColor(Color.parseColor("#ffffff"));
+        fragmentActivity.getTheToolbar().setBackgroundColor(Color.parseColor("#708090"));
 
         mAdapter.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
