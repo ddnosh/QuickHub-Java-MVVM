@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidwind.androidquick.constant.QConstant;
+import com.androidwind.androidquick.module.asynchronize.eventbus.EventBusUtil;
 import com.androidwind.androidquick.module.asynchronize.eventbus.EventCenter;
 import com.androidwind.androidquick.module.exception.ApiException;
 import com.androidwind.androidquick.module.rxjava.BaseObserver;
@@ -32,8 +33,6 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,7 +136,7 @@ public class MainActivity extends MVVMActivity<MainViewModel> implements Navigat
                     QuickModule.imageProcessor().loadNet(App.sGithubUser.getAvatarUrl(), mHeader);
                     mName.setText(App.sGithubUser.getName());
                     mSignature.setText(result.data.getBio());
-                    EventBus.getDefault().post(new EventCenter<>(Constant.EVENTBUS_EVENTCODE, App.sGithubUser.getName()));
+                    EventBusUtil.sendEvent(new EventCenter<>(Constant.EVENTBUS_EVENTCODE, App.sGithubUser.getName()));
                 }
             }
             if (result.showError()) {

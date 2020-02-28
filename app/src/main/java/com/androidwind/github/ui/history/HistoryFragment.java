@@ -21,8 +21,6 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
-
 /**
  * @author ddnosh
  * @website http://blog.csdn.net/ddnosh
@@ -68,8 +66,7 @@ public class HistoryFragment extends BaseListFragment<HistoryViewModel> {
     }
 
     @Override
-    protected LiveData initLiveData() {
-        return getViewModel().getLiveDataHistory();
+    protected void initLiveData() {
     }
 
     @Override
@@ -94,18 +91,18 @@ public class HistoryFragment extends BaseListFragment<HistoryViewModel> {
         if (list != null && list.size() > 0) {
             if (!SPUtils.getInstance().getBoolean("HAS_SHOW_HINT")) {
                 new ADialog(mContext)
-                    .setDialogLayout(R.layout.dialog_alert)
-                    .setConvertListener((BaseDialog.ViewConvertListener) (holder, dialog) -> {
-                        holder.setText(R.id.dialog_title, getResources().getString(R.string.app_name));
-                        holder.setText(R.id.dialog_info, getResources().getString(R.string.long_press_to_delete));
-                        holder.setText(R.id.dialog_confirm, getResources().getString(R.string.confirm));
-                        holder.setOnClickListener(R.id.dialog_confirm, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                            }
-                        });
-                    }).show();
+                        .setDialogLayout(R.layout.dialog_alert)
+                        .setConvertListener((BaseDialog.ViewConvertListener) (holder, dialog) -> {
+                            holder.setText(R.id.dialog_title, getResources().getString(R.string.app_name));
+                            holder.setText(R.id.dialog_info, getResources().getString(R.string.long_press_to_delete));
+                            holder.setText(R.id.dialog_confirm, getResources().getString(R.string.confirm));
+                            holder.setOnClickListener(R.id.dialog_confirm, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                        }).show();
                 SPUtils.getInstance().put("HAS_SHOW_HINT", true);
             }
         }

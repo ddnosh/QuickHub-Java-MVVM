@@ -4,8 +4,6 @@ import com.androidwind.androidquick.util.StringUtil;
 import com.androidwind.github.common.Constant;
 import com.androidwind.github.ui.base.BaseRepoFragment;
 
-import androidx.lifecycle.LiveData;
-
 /**
  * @author ddnosh
  * @website http://blog.csdn.net/ddnosh
@@ -38,8 +36,8 @@ public class SearchFragment extends BaseRepoFragment<SearchViewModel> {
     }
 
     @Override
-    protected LiveData initLiveData() {
-        return getViewModel().getLiveDataGithubSearch();
+    protected void initLiveData() {
+        getViewModel().getLiveDataGithubSearch().observe(this, observer);
     }
 
     @Override
@@ -47,8 +45,7 @@ public class SearchFragment extends BaseRepoFragment<SearchViewModel> {
         if (StringUtil.isEmpty(keyword)) {
             return;
         }
-        mViewModel.search(keyword, page, Constant.PER_PAGE)
-                .observe(this, observer);
+        mViewModel.search(keyword, page, Constant.PER_PAGE);
     }
 
 }

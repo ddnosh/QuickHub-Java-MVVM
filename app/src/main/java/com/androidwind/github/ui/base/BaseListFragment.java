@@ -7,7 +7,6 @@ import com.androidwind.github.mvvm.BaseViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -57,7 +56,7 @@ public abstract class BaseListFragment<T extends BaseViewModel> extends MVVMFrag
 
     protected abstract BaseQuickAdapter getRepoAdapter();
 
-    protected abstract LiveData initLiveData();
+    protected abstract void initLiveData();
 
     protected abstract void loadData();
 

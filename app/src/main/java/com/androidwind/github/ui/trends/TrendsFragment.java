@@ -17,8 +17,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
-
 /**
  * @author ddnosh
  * @website http://blog.csdn.net/ddnosh
@@ -31,33 +29,32 @@ public class TrendsFragment extends BaseListFragment<TrendsViewModel> {
     }
 
     @Override
-    protected LiveData initLiveData() {
-        return getViewModel().getLiveDataGithubEvent();
+    protected void initLiveData() {
+        getViewModel().getLiveDataGithubEvent().observe(this, result -> {
+            if (result.showLoading()) {
+                showLoadingDialog();
+            } else {
+                if (isReload) {
+                    mSmartRefreshLayout.finishRefresh();
+                } else {
+                    mSmartRefreshLayout.finishLoadMore();
+                }
+                //
+                if (result.showSuccess()) {
+                    updateData(result.data);
+
+                }
+                if (result.showError()) {
+                    dismissLoadingDialog();
+                    ToastUtils.showShort(result.msg);
+                }
+            }
+        });
     }
 
     @Override
     protected void loadData() {
-        getViewModel().getTrends(App.sLastLoginUser.getName(), page, Constant.PER_PAGE)
-                .observe(this, result -> {
-                    if (result.showLoading()) {
-                        showLoadingDialog();
-                    } else {
-                        if (isReload) {
-                            mSmartRefreshLayout.finishRefresh();
-                        } else {
-                            mSmartRefreshLayout.finishLoadMore();
-                        }
-                        //
-                        if (result.showSuccess()) {
-                            updateData(result.data);
-
-                        }
-                        if (result.showError()) {
-                            dismissLoadingDialog();
-                            ToastUtils.showShort(result.msg);
-                        }
-                    }
-                });
+        getViewModel().getTrends(App.sLastLoginUser.getName(), page, Constant.PER_PAGE);
     }
 
     private void updateData(List<GithubEvent> list) {

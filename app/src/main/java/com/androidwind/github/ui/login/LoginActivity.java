@@ -41,7 +41,7 @@ public class LoginActivity extends MVVMActivity<LoginViewModel> {
         super.initViewsAndEvents(savedInstanceState);
         getToolbar().setTitle(getResources().getString(R.string.login));
         getToolbar().setTitleTextColor(Color.parseColor("#ffffff"));
-
+        getToolbar().setBackgroundColor(Color.parseColor("#708090"));
         //init viewmodel
         getViewModel().getLiveDataLogin()
                 .observe(this, result -> {
