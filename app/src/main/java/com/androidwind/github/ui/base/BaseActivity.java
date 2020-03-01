@@ -43,6 +43,11 @@ public abstract class BaseActivity extends QuickActivity {
     }
 
     @Override
+    protected boolean isApplyButterKnife() {
+        return true;
+    }
+
+    @Override
     protected void onEventComing(EventCenter eventCenter) {
 
     }

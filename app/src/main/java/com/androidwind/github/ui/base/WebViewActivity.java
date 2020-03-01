@@ -18,14 +18,18 @@ import com.androidwind.github.common.Constant;
 
 import org.jetbrains.annotations.NotNull;
 
+import butterknife.BindView;
+
 /**
  * @author ddnosh
  * @website http://blog.csdn.net/ddnosh
  */
 public class WebViewActivity extends QuickActivity {
 
-    private WebView wvWebView;
-    private ProgressBar pbWebView;
+    @BindView(R.id.wvWebView)
+    WebView wvWebView;
+    @BindView(R.id.pbWebView)
+    ProgressBar pbWebView;
 
     private Bundle mBundle;
 
@@ -37,9 +41,12 @@ public class WebViewActivity extends QuickActivity {
     }
 
     @Override
+    protected boolean isApplyButterKnife() {
+        return true;
+    }
+
+    @Override
     protected void initViewsAndEvents(Bundle savedInstanceState) {
-        wvWebView = findViewById(R.id.wvWebView);
-        pbWebView = findViewById(R.id.pbWebView);
         initData();
     }
 

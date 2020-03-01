@@ -34,4 +34,8 @@ public abstract class BaseFragment extends QuickFragment {
 
     }
 
+    @Override
+    protected boolean isApplyButterKnife() {
+        return true;
+    }
 }
