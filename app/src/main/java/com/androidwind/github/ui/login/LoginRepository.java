@@ -10,6 +10,7 @@ import com.androidwind.github.bean.GithubBasicToken;
 import com.androidwind.github.common.App;
 import com.androidwind.github.module.retrofit.AuthRequestModel;
 import com.androidwind.github.module.retrofit.RetrofitApi;
+import com.androidwind.github.module.retrofit.RetrofitManager;
 import com.androidwind.github.module.room.User;
 import com.androidwind.github.mvvm.AppRepository;
 import com.androidwind.github.mvvm.BaseRepository;
@@ -46,6 +47,10 @@ public class LoginRepository extends BaseRepository {
                     @Override
                     public void onError(ApiException exception) {
                         LogUtils.eTag(TAG, exception.toString());//打印错误日志
+                        if ("当前请求需要用户验证".equals(exception.getMsg())) {
+                            exception.setMsg("帐号或密码错误！");
+                        }
+                        RetrofitManager.INSTANCE.reset();
                         liveDataLogin.setValue(Data.error(exception.getMsg()));
                     }
 

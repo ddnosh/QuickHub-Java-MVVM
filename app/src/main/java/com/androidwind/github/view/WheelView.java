@@ -26,11 +26,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Author: wangjie
- * Email: tiantian.china.2@gmail.com
- * Date: 7/1/14.
- */
 public class WheelView extends ScrollView {
     public static final String TAG = WheelView.class.getSimpleName();
 
