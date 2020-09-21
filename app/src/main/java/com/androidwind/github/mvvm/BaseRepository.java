@@ -16,7 +16,7 @@ import androidx.lifecycle.MutableLiveData;
  * @author ddnosh
  * @website http://blog.csdn.net/ddnosh
  */
-public class BaseRepository {
+public abstract class BaseRepository {
 
     private final String TAG = "BaseRepository";
 
