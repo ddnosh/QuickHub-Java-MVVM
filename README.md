@@ -4,6 +4,12 @@ QuickHub是一款基于GithHub网站提供API开发的开源软件，界面简�
 [<img alt="Get it on Google Play" height="80" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">](https://play.google.com/store/apps/details?id=com.androidwind.github)
 
 #### 书籍源码参考请切换到book_source_code_feature分支。
+在book_source_code_feature分支中开发注意事项：
+1. 在local.properties中新建两个字段：
+quickhub_client_id = ""
+quickhub_client_secret = ""
+这两个字段需要在Setting-->Developer settings-->OAuth App中创建一个新的app
+
 #### master分支用于持续版本迭代。
 
 ![Image](https://github.com/ddnosh/githubusercontent/blob/master/image/QuickHub/icon_512.png)
