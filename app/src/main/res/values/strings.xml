@@ -18,7 +18,7 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="delete_success">Delete success!</string>
-    <string name="login">Login</string>
+    <string name="login">Login with browser</string>
     <string name="account_password_not_null">Account or password should not be null!</string>
     <string name="current_select">Current select: </string>
     <string name="select_language">Select language</string>

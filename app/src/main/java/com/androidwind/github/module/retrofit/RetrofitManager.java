@@ -43,10 +43,13 @@ public enum RetrofitManager {
                 .connectTimeout(timeOut, TimeUnit.MILLISECONDS)
                 .addInterceptor(loggingInterceptor)
                 .cache(cache);
-        if (!StringUtil.isEmpty(App.sAuthorization)) {
+        if (App.sLastLoginUser != null && !StringUtil.isEmpty(App.sLastLoginUser.getToken())) {
             okHttpClientBuilder.interceptors().add(0, chain -> {
+                String auth =
+                        App.sLastLoginUser.getToken().startsWith("Basic") ?
+                                App.sLastLoginUser.getToken() : "token " + App.sLastLoginUser.getToken();
                 Request.Builder reqBuilder = chain.request()
-                        .newBuilder().addHeader("Authorization", App.sLastLoginUser.getToken());
+                        .newBuilder().addHeader("Authorization", auth);
                 return chain.proceed(reqBuilder.build());
             });
         }

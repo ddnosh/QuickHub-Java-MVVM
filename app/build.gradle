@@ -32,11 +32,17 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+
+            buildConfigField 'String', 'CLIENT_ID', getProps("quickhub_client_id")
+            buildConfigField 'String', 'CLIENT_SECRET', getProps("quickhub_client_secret")
         }
 
         debug {
             debuggable true
             minifyEnabled false
+
+            buildConfigField 'String', 'CLIENT_ID', getProps("quickhub_client_id")
+            buildConfigField 'String', 'CLIENT_SECRET', getProps("quickhub_client_secret")
         }
     }
 
@@ -48,6 +54,17 @@ android {
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
+    }
+}
+
+def getProps(String propName) {
+    def propsFile = rootProject.file('local.properties')
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        return props[propName]
+    } else {
+        return "";
     }
 }
 

@@ -3,7 +3,8 @@ package com.androidwind.github.ui.login;
 import android.app.Application;
 
 import com.androidwind.github.bean.Data;
-import com.androidwind.github.bean.GithubAuth;
+import com.androidwind.github.bean.GithubOAuthToken;
+import com.androidwind.github.bean.GithubUser;
 import com.androidwind.github.mvvm.BaseViewModel;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,13 @@ public class LoginViewModel extends BaseViewModel<LoginRepository> {
         super(application);
     }
 
-    public LiveData<Data<GithubAuth>> login(String name, String password) {
-        return repository.login(name, password);
+    // for browser
+    public LiveData<Data<GithubOAuthToken>> login(String code, String state) {
+        return repository.login(code, state);
+    }
+
+    // user info
+    public LiveData<Data<GithubUser>> getUserInfo() {
+        return repository.getGithubUser();
     }
 }

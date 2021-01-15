@@ -21,7 +21,6 @@ public class User {
     @ColumnInfo(name = "user_token")
     private String token;
 
-    @NonNull
     @ColumnInfo(name = "user_login_time")
     private long loginTime;
 
@@ -43,7 +42,6 @@ public class User {
         this.token = token;
     }
 
-    @NonNull
     public long getLoginTime() {
         return loginTime;
     }

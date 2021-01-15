@@ -20,7 +20,7 @@ public class RetrofitApi {
     }
 
     public static LoginApi getLoginApi() {
-        return getApis(LoginApi.class, Constant.GITHUB_API_URL, false);
+        return getApis(LoginApi.class, Constant.GITHUB_URL, false);
     }
 
     public static UserApi getUserApi() {

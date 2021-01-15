@@ -9,6 +9,7 @@ package com.androidwind.github.common;
 public class Constant {
 
     //URL
+    public final static String GITHUB_URL = "https://github.com/";
     public final static String GITHUB_API_URL = "https://api.github.com/";
 
     //DB

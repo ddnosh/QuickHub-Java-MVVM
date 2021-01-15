@@ -36,7 +36,9 @@ ext {
             material            : "1.2.0-alpha03",
             refresh             : "1.1.0",
             brvah               : "3.0.0-beta2",
-            cardview            : "1.0.0"
+            cardview            : "1.0.0",
+
+            browser            : "1.3.0"
     ]
 
     supportDeps = [
@@ -46,7 +48,8 @@ ext {
             "legacy-support-v4"         : "androidx.legacy:legacy-support-v4:${dependVersion.legacy}",
             "lifecycle-extensions"      : "androidx.lifecycle:lifecycle-extensions:${dependVersion.lifecycle_extensions}",
             "room-runtime"              : "androidx.room:room-runtime:${dependVersion.room}",
-            "room-rxjava2"              : "androidx.room:room-rxjava2:${dependVersion.room}"
+            "room-rxjava2"              : "androidx.room:room-rxjava2:${dependVersion.room}",
+            "browser"                   : "androidx.browser:browser:${dependVersion.browser}"
     ]
 
     commonDeps = [

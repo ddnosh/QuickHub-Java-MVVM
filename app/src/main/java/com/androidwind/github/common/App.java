@@ -1,6 +1,5 @@
 package com.androidwind.github.common;
 
-import com.androidwind.github.bean.GithubAuth;
 import com.androidwind.github.bean.GithubUser;
 import com.androidwind.github.module.room.User;
 
@@ -12,8 +11,6 @@ import com.androidwind.github.module.room.User;
  */
 public class App {
 
-    public static String sAuthorization;
-    public static User sLastLoginUser;
-    public static GithubAuth sGithubAuth;
     public static GithubUser sGithubUser;
+    public static User sLastLoginUser;
 }

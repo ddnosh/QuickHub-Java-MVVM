@@ -74,6 +74,6 @@ public class ProfileActivity extends BaseActivity {
         AppRepository.logout(App.sLastLoginUser);
         App.sLastLoginUser = null;
         App.sGithubUser = null;
-        App.sGithubAuth = null;
+//        App.sGithubAuth = null;
     }
 }
